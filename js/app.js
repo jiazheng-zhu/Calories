@@ -1,57 +1,66 @@
 var app = new Vue({
     el: '#app',
-    data() {
+    data () {
         return {
-            food: [
-                {
-                    name: 'Chips',
-                    calories: '333',
-                    carbs: '321',
-                    fat: '999',
-                    protein: '223'
-                },
-                {
-                    name: 'Tomato',
-                    calories: '33',
-                    carbs: '32',
-                    fat: '12',
-                    protein: '123'
-                },
-                {
-                    name: 'Pork',
-                    calories: '533',
-                    carbs: '321',
-                    fat: '832',
-                    protein: '323'
-                }
+            totals: {
+                cal: null,
+                fat: null,
+                car: null,
+                pro: null
+            },
+            newProd: {
+                name: '',
+                cal: 0,
+                fat: 0,
+                car: 0,
+                pro: 0
+            },
+            productList: [
+             {
+                 name: 'Potato',
+                 cal: 12,
+                 fat: 3,
+                 car: 4,
+                 pro: 2
+             }, 
+             {
+                name: 'Tomato',
+                cal: 13,
+                fat: 5,
+                car: 7,
+                pro: 9
+            }, 
+            {
+                name: 'Onion',
+                cal: 123,
+                fat: 34,
+                car: 455,
+                pro: 266
+            }  
             ]
         }
     },
-    computed: {
-        totals: function () {
-            var totalsC = {
-                calories: 0,
-                carbs: 0,
-                fat: 0,
-                protein: 0
-            }
-            for (let i = 0; i < this.food.length; i++) {
-                totalsC.calories += Number(this.food[i].calories);
-                totalsC.carbs += Number(this.food[i].carbs);
-                totalsC.fat += Number(this.food[i].fat);
-                totalsC.protein += Number(this.food[i].protein);
-            }
-
-            return totalsC;
-        }
-    },methods: {
-        
-        
-        removeFood(itemIndex) {
-            this.food.splice(itemIndex, 1);
+    methods: {
+        addNewProd() {
+            this.productList.push({
+                name: this.newProd.name,
+                cal: Number(this.newProd.cal),
+                fat: Number(this.newProd.fat),
+                car: Number(this.newProd.car),
+                pro: Number(this.newProd.pro)
+            });
+            this.newProd = {};
         },
-        
+        removeProd(itemIndex) {
+            this.productList.splice(itemIndex, 1);
+        },
+        dataChanged(){
+            for (var i = 0; i < this.productList.length; i++){
+                this.totals.cal += this.productList[i].cal;
+                this.totals.fat += this.productList[i].fat;
+                this.totals.car += this.productList[i].car;
+                this.totals.pro += this.productList[i].pro;
+            }
         }
-    
-
+    }
 })

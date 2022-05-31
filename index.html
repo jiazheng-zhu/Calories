@@ -1,57 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Calorie Counter</title>
 </head>
-
 <body>
 
-
     <div id="app">
-
         <table>
             <thead>
-                <th>Name</th>
-                <th>Calories</th>
-                <th>Carbs</th>
-                <th>Fat</th>
-                <th>Protein</th>
- 
+                <tt>Description</tt>
+                <tt>Calories</tt>
+                <tt>Fat</tt>
+                <tt>Carbs</tt>
+                <tt>Protein</tt>
             </thead>
-
             <tbody>
-                <tr v-for="(item,index) in food">
-                    <td>{{ item.name }}</td>
-                    <td>{{ item.calories }}</td>
-                    <td>{{ item.carbs }}</td>
-                    <td>{{ item.fat }}</td>
-                    <td>{{ item.protein }}</td>
-
-
-                     <td><button @click='removeFood(index)'>X</button></td>
+                <tr v-for = '(product, index) in productList'>
+                    <td><input @change='dataChanged' type="text" v-bind:value="product.name"></td>
+                    <td><input @change='dataChanged' type="number" v-bind:value="product.cal"></td>
+                    <td><input @change='dataChanged' type="number" v-bind:value="product.fat"></td>
+                    <td><input @change='dataChanged' type="number" v-bind:value="product.car"></td>
+                    <td><input @change='dataChanged' type="number" v-bind:value="product.pro"></td>
+                    <td><button @click='removeProd(index)'>X</button></td>
                 </tr>
-            
-                <tr>
-                    <th>Totol</th>
-                    <td>{{ totals.calories }}</td>
-                    <td>{{ totals.carbs }}</td>
-                    <td>{{ totals.fat }}</td>
-                    <td>{{ totals.protein }}</td>
-               
-                </tr>
-            
             </tbody>
         </table>
-
+        <div class="totals">
+            Totals: 
+            <span>{{totals.cal}}</span>
+            <span>{{totals.fat}}</span>
+            <span>{{totals.car}}</span>
+            <span>{{totals.pro}}</span>
+        </div>
+        <div class="new">
+            <input type="text" v-model='newProd.name' placeholder="product name">
+            <input type="number" v-model='newProd.cal' placeholder="calories">
+            <input type="number" v-model='newProd.fat' placeholder="fat">
+            <input type="number" v-model='newProd.car' placeholder="carbs">
+            <input type="number" v-model='newProd.pro' placeholder="protein">
+            <button @click='addNewProd'>+</button>
+        </div> 
     </div>
-
 
     <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
     <script src="js/app.js"></script>
 </body>
-
 </html>
